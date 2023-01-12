@@ -25,6 +25,7 @@ main {
 }
 
 .cardBoard{
+    padding: 20px;
     gap: 15px;
     display: grid;
     align-items: center;
@@ -32,15 +33,39 @@ main {
     align-content: center;
     aspect-ratio: 1123/749;
     transform: translate(10%,5%);
-    height: 72%;
+    height: 65%;
     max-height: 90vh;
+
+    box-shadow: 0px 0px 10px #000;
 }
 
 .card { 
+    position: relative;
     margin: 0;
     justify-self: center;
     aspect-ratio: 1/1;
     height: 100%;
     background-color: red;
     border: 1px solid;
+    transition: all 500ms ease;
+    transform-style: preserve-3d;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.card:active {
+transform: rotateY(180deg);
+}
+
+.side {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.frontCard {
+    background: white;
+}
+
+.backCard {
+    background-color: blue;
+    backface-visibility: hidden;
 }

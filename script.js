@@ -9,7 +9,6 @@ const gridAjust = () => {
   cardBoard.style.gridTemplateRows = `repeat(${lineBoardCard}, 1fr)`;
 };
 
-gridAjust();
 const verifyOrientation = () => {
   if (window.orientation === 0) {
     console.log('y');
@@ -36,3 +35,4 @@ window.addEventListener('orientationchange', () => {
 if (window.devicePixelRatio > 1) {
   verifyOrientation();
 }
+gridAjust();
