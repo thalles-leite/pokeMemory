@@ -15,11 +15,32 @@ main {
     align-items: center;
     justify-items: center;
     width: 100%;
-    max-width:62vw;
+    max-width:90vw;
+    max-height: 90vh;
     background-image: url(./files/images/pokedex.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    position: relative;
 }
 
+.cardBoard{
+    gap: 15px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    aspect-ratio: 1123/749;
+    transform: translate(10%,5%);
+    height: 72%;
+    max-height: 90vh;
+}
 
+.card { 
+    margin: 0;
+    justify-self: center;
+    aspect-ratio: 1/1;
+    height: 100%;
+    background-color: red;
+    border: 1px solid;
+}
