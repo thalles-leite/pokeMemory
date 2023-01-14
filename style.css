@@ -119,10 +119,12 @@ main {
 }
 
 
-.time {
+.timer {
     background-color: rgb(231, 66, 0) ;
     padding: 0.4vw;
-    font-size: 0.8vw;
+    font-size: 10px;
+    text-align: center;
+    color: white;
 }
 
 .cards {
