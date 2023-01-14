@@ -1,46 +1,71 @@
 const main = document.querySelector('main');
 const cardBoard = document.querySelector('.cardBoard');
 const bCards = document.querySelector('.cards');
-// const cards = document.querySelectorAll('.card');
-const numberOfChildren = bCards.children.length;
-const lineBoardCard = Math.sqrt(numberOfChildren);
-console.log(numberOfChildren);
+const cards = document.querySelectorAll('.card');
 
-const gridAjust = () => {
-  bCards.style.gridTemplateColumns = `repeat(${lineBoardCard}, 1fr)`;
-  bCards.style.gridTemplateRows = `repeat(${lineBoardCard}, 1fr)`;
-};
-
-// const verifyOrientation = () => {
-//   if (window.orientation === 0) {
-//     console.log('y');
-//     main.style.backgroundImage = 'url(./files/images/pokedexy.png)';
-//     main.style.aspectRatio = '749/1123';
-//     main.style.maxWidth = '100%';
-//     cardBoard.style.transform = 'translate(-3vw, 5vh)';
-//     cardBoard.style.maxWidth = '65vw';
-//     cardBoard.style.height = '65%';
-//     for (const card of cards) {
-//       card.style.height = '64%';
-//     }
-//   } else {
-//     console.log('x');
-//     main.style.backgroundImage = 'url(./files/images/pokedex.png)';
-//     main.style.aspectRatio = 1123 / 749;
-//     main.style.maxWidth = '95vw';
-//     cardBoard.style.transform = 'translate(4.5vw, 3.5vh)';
-//     cardBoard.style.maxWidth = '48vw';
-//     cardBoard.style.height = '60%';
-//     for (const card of cards) {
-//       card.style.height = '90%';
-//     }
-//   }
+// const gridAjust = () => {
+//   bCards.style.gridTemplateColumns = `repeat(${lineBoardCard}, 1fr)`;
+//   bCards.style.gridTemplateRows = `repeat(${lineBoardCard}, 1fr)`;
 // };
 
-// window.addEventListener('orientationchange', () => {
-//   verifyOrientation();
-// });
-// if (window.devicePixelRatio > 1) {
-//   verifyOrientation();
-// }
-gridAjust();
+
+const arrayGenerator = (dificult) => {
+  const arrayCards = [];
+  const qtdCards = (dificult);
+  while (arrayCards.length < qtdCards) {
+    const number = Math.floor((Math.random()) * 39) + 1;
+    if (!arrayCards.includes(number)) {
+      arrayCards.push(number);
+    };
+  };
+  const cards = [...arrayCards, ...arrayCards].sort(() => Math.random() - 0.5);
+  return cards;
+};
+
+
+const generateCard = (image, lados) => {
+  let tamanhoCard = bCards.offsetWidth / 3 - 40;
+  if (lados === 2) {
+    tamanhoCard = bCards.offsetWidth / 2 - 15;
+  }
+  if (lados > 7 && lados < 9) {
+    tamanhoCard = bCards.offsetWidth / 4 - 15;
+  }
+
+  if (lados >= 9) {
+    tamanhoCard = bCards.offsetWidth / 5 - 15;
+  }
+
+  const card = document.createElement('section');
+  const frontCard = document.createElement('section');
+  const backCard = document.createElement('section');
+
+  card.className = 'card';
+  card.style.width = `${tamanhoCard}px`;
+  card.style.height = `${tamanhoCard}px`;
+  card.addEventListener('click', () => {
+    card.classList.add('rotate');
+  });
+
+  frontCard.className = 'frontCard side';
+  frontCard.style.backgroundImage = `url(./files/images/pokemons/${image}.gif)`;
+  backCard.className = 'backCard side';
+
+  card.appendChild(frontCard);
+  card.appendChild(backCard);
+  bCards.appendChild(card);
+};
+
+const generateAllCards = (lados) => {
+  const arrayCards = arrayGenerator(lados);
+  arrayCards.forEach((element) => {
+    generateCard(element, lados);
+  });
+};
+
+
+generateAllCards(12);
+
+// gridAjust();
+
+

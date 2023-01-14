@@ -55,7 +55,7 @@ main {
 }
 .leftData {
     left: 7%;
-    top: 15.5%;
+    top: 16%;
     position: absolute;
     border-bottom-left-radius: 50%;
     width:20%;
@@ -88,20 +88,21 @@ main {
 .rightData{
     text-align: center;
     right: 3.8%;
-    top: 15.5%;
+    top: 16%;
     border-bottom-right-radius: 2em;
     position: absolute;
-    width:15%;
+    width:17%;
     height: 77%;
     box-shadow: 0px 3px 10px 1px black;        
+    
 }
 
 .rightData li{
-    border-bottom: 1px dashed white;
+    list-style: none;
     color: white;
-    font-size: 0.3em;
-    padding: 8px 2%;
-    margin: 10px 5px;
+    font-size: 7px;
+    padding: 8px 0;
+    margin: 10px 0;
 }
 
 .rightData h1, .leftData h1 {
@@ -119,32 +120,30 @@ main {
 }
 
 .cards {
-    transform: translate(10%,5%);
-    aspect-ratio: 1/1;
-    gap: 20px;
-    display: grid;
+    transform: translate(6%,5%);    
+    display: flex;
+    flex-wrap: wrap;
     width: 55%;
+    max-height: 85%;
+    background-color: rebeccapurple;
+    align-items: center;
+    justify-content: center;
 }
 
 .card { 
+    aspect-ratio: 1/1;
     box-shadow: 0px 0px 10px rgb(22, 22, 22);
     position: relative;
-    margin: 0;
-    justify-self: center;
-    aspect-ratio: 1/1;
-    height: 100%;
-    border: 1px solid;
+    margin: 5px;
     transition: all 500ms ease;
     transform-style: preserve-3d;
-    
 }
 
-.card:active {
-transform: rotateY(180deg);
+.rotate{
+    transform: rotateY(180deg);
 }
-
 .side {
-    outline: 3px solid rgb(0, 8, 121);
+    
     width: 100%;
     height: 100%;
     position: absolute;
@@ -152,7 +151,10 @@ transform: rotateY(180deg);
     background-size: cover;
 }
 .frontCard {
-    background: white;
+    outline: 1px solid black;
+    background-color: rgb(231, 100, 100);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .backCard {
