@@ -151,6 +151,11 @@ main {
 .rotate{
     transform: rotateY(180deg);
 }
+
+.correct {
+    filter: grayscale(1) blur(2px);
+    background-color: rebeccapurple;
+}
 .side {
     
     width: 100%;

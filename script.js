@@ -24,11 +24,35 @@ const arrayGenerator = (dificult) => {
   return cards;
 };
 
-const firstClickedCard = '';
-const lastClickedCard = '';
+let firstClickedCard = '';
+let lastClickedCard = '';
+
+const correctMove = () => {
+  console.log('Certo!');
+  firstClickedCard.previousSibling.classList.add('correct');
+  lastClickedCard.previousSibling.classList.add('correct');
+  firstClickedCard = '';
+  lastClickedCard = '';
+};
+
+const wrongMove = () => {
+  setTimeout(() => {
+    firstClickedCard.parentNode.classList.remove('rotate');
+    lastClickedCard.parentNode.classList.remove('rotate');
+    firstClickedCard = '';
+    lastClickedCard = '';
+  }, 1000);
+};
 
 const checkPlay = (target) => {
   target.parentNode.classList.add('rotate');
+  if (firstClickedCard === '') {
+    firstClickedCard = target;
+    return;
+  };
+  lastClickedCard = target;
+  console.log(`Primeira carta: ${firstClickedCard.getAttribute('data-key')}\nSegunda carta: ${lastClickedCard.getAttribute('data-key')}`);
+  firstClickedCard.getAttribute('data-key') === lastClickedCard.getAttribute('data-key') ? correctMove() : wrongMove();
 };
 
 console.log(bCards.offsetWidth);
@@ -49,6 +73,7 @@ const generateCard = (image, lados) => {
 
   frontCard.className = 'frontCard side';
   frontCard.style.backgroundImage = `url(./files/images/pokemons/${image}.gif)`;
+  backCard.setAttribute('data-key', image);
   backCard.className = 'backCard side';
 
   card.appendChild(frontCard);
