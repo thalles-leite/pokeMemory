@@ -71,11 +71,14 @@ main {
 }
 .star{
     aspect-ratio: 1/1;
-    width: 30%;
+    width: 25%;
     background-image: url(./files/images/star.svg);
     background-size: cover;
 }
+.starDisabled {
+    filter: opacity(0.1);
 
+}
 .name{
     font-size: 1.2vw;
     text-align: center;
@@ -169,10 +172,9 @@ transform: rotateY(180deg);
 
 .qtdStars {
     bottom: 5%;
-    right: 10%;
+    right: 5%;
     position: absolute;
     color: white;
     font-size: 0.8vw;
     text-align: right;
-    
 }
