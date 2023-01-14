@@ -1,13 +1,15 @@
+/* eslint-disable object-curly-spacing */
+/* eslint-disable max-len */
 const main = document.querySelector('main');
 const cardBoard = document.querySelector('.cardBoard');
 const bCards = document.querySelector('.cards');
 const cards = document.querySelectorAll('.card');
+const blueLight = document.querySelector('.blueLight');
 
 // const gridAjust = () => {
 //   bCards.style.gridTemplateColumns = `repeat(${lineBoardCard}, 1fr)`;
 //   bCards.style.gridTemplateRows = `repeat(${lineBoardCard}, 1fr)`;
 // };
-
 
 const arrayGenerator = (dificult) => {
   const arrayCards = [];
@@ -22,29 +24,27 @@ const arrayGenerator = (dificult) => {
   return cards;
 };
 
+const firstClickedCard = '';
+const lastClickedCard = '';
 
+const checkPlay = (target) => {
+  target.parentNode.classList.add('rotate');
+};
+
+console.log(bCards.offsetWidth);
 const generateCard = (image, lados) => {
-  let tamanhoCard = bCards.offsetWidth / 3 - 40;
-  if (lados === 2) {
-    tamanhoCard = bCards.offsetWidth / 2 - 15;
-  }
-  if (lados > 7 && lados < 9) {
-    tamanhoCard = bCards.offsetWidth / 4 - 15;
-  }
-
-  if (lados >= 9) {
-    tamanhoCard = bCards.offsetWidth / 5 - 15;
-  }
-
+  const tamanhoCard = Math.round(bCards.offsetHeight / Math.sqrt(2 * lados)) * 0.76;
+  const tamPercent = ((tamanhoCard / bCards.offsetWidth) * 100);
   const card = document.createElement('section');
   const frontCard = document.createElement('section');
   const backCard = document.createElement('section');
 
   card.className = 'card';
-  card.style.width = `${tamanhoCard}px`;
-  card.style.height = `${tamanhoCard}px`;
-  card.addEventListener('click', () => {
-    card.classList.add('rotate');
+  card.style.width = `${tamPercent}%`;
+  card.style.height = `${tamPercent}%`;
+
+  card.addEventListener('click', ({ target }) => {
+    checkPlay(target);
   });
 
   frontCard.className = 'frontCard side';
@@ -57,14 +57,26 @@ const generateCard = (image, lados) => {
 };
 
 const generateAllCards = (lados) => {
+  bCards.innerHTML = '';
   const arrayCards = arrayGenerator(lados);
   arrayCards.forEach((element) => {
     generateCard(element, lados);
   });
 };
+let cont = 1;
 
+blueLight.addEventListener('click', () => {
+  generateAllCards(cont);
+  console.log(cont);
+  cont += 1;
+});
+blueLight.addEventListener('contextmenu', (element) => {
+  element.preventDefault();
+  generateAllCards(cont);
+  console.log(cont);
+  cont -= 1;
+});
 
-generateAllCards(12);
 
 // gridAjust();
 
