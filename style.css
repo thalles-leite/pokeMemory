@@ -2,6 +2,7 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
     font-family: 'Press Start 2P', cursive;
 }
 
@@ -19,61 +20,64 @@ body{
     align-items: center;
 } 
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1123/749;
-    height: 90vh;
-    max-width: 90vw;
-}
+
 
 main {
+    
     position: relative;
-    aspect-ratio: 1123/749;
     display: flex;
-    flex-direction: column;
+    height: 95%;
+    width: 90%;
+    min-width: 400px;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
     justify-items: center;
-    width: 100%;
-    height: fit-content;
-    background-image: url(./files/images/pokedex.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    align-items: center;
     position: relative;
+    background-color: rgba(252, 252, 252, 0.425);
+    box-shadow: 0px 0px 10px 2px black;    
+    
 }
 
-.cardBoard{
-    display: flex;
-    padding: 20px;
-    aspect-ratio: 1123/749;
-    height: 90%;
-    align-items: center;
-    justify-content: center;
-}
 .leftData {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    left: 7%;
-    top: 16%;
-    position: absolute;
-    border-bottom-left-radius: 50%;
-    width:15%;
-    height: 30%;
+    height: 98%;
     box-shadow: 0px 0px 10px 1px black;
+    margin: 1%;
+}
 
+.rightData{
+    background-color: rgba(255, 255, 255, 0.342);
+    height: 100%;
+    color: rgb(255, 255, 255);
+    overflow: auto;
+    
+}
+
+.olRighData{
+    overflow-y: scroll;
+    max-height: 80%;
+}
+.rightData li {
+    background-color: rgba(165, 42, 42, 0.39);
+    padding: 2%;
+    text-align: center;
+    margin-bottom: 1%;
+    
 }
 
 .stars {
+    background-color: rgba(255, 255, 255, 0.342) ;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    padding: 2%;
 }
 .star{
     aspect-ratio: 1/1;
-    width: 25%;
+    width: 15%;
     background-image: url(./files/images/star.svg);
     background-size: cover;
 }
@@ -81,73 +85,48 @@ main {
     filter: opacity(0.1);
 }
 .name{
-    margin-top: 2vh;
-    font-size: 1vw;
+    margin: 2vh;
+    font-size: 1.5em;
     text-align: center;
     color: white;
     text-shadow: 3px 3px 2px black;
 }
 
-.rightData{
+.timer {
+    background-color:rgba(255, 255, 255, 0.342)  ;
+    text-shadow: 3px 3px 2px black;
+    padding: 5%;
+    font-size: 1.5em;
     text-align: center;
-    right: 3.8%;
-    top: 16%;
-    border-bottom-right-radius: 2em;
-    position: absolute;
-    width:17%;
-    height: 77%;
-    box-shadow: 0px 3px 10px 1px black;        
+    color: rgb(255, 255, 255);
+}
+.cardBoard{
+    padding: 1%;
+    height: 100%;
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    overflow: auto;
     
 }
+.cards { 
+    aspect-ratio: 1/1;
+    height:100%;
+    display: grid;
+    align-items: center;    
 
-.rightData li{
-    list-style: none;
-    color: white;
-    font-size: 7px;
-    padding: 8px 0;
-    margin: 10px 0;
-}
-
-.rightData h1, .leftData h1 {
-    font-size: 0.6em;
-    padding: 10px 0;
-    margin: 0 0 5px;
-    color: rgb(221, 221, 221);
-    text-align: center;
-    background-color: rgb(231, 66, 0);  
-    width: 100%;
-}
-
-
-.timer {
-    background-color: rgb(231, 66, 0) ;
-    padding: 0.4vw;
-    font-size: 10px;
-    text-align: center;
-    color: white;
-}
-
-.cards {
-    transform: translate(1%,5%);    
-    display: flex;
-    flex-wrap: wrap;
-    width: 63%;
-    height: 100%;
-    max-height: 85%;
-    align-content: space-evenly; 
-    justify-content: space-evenly;
-    align-items: center;
-    overflow: auto;
-}
+    }
 
 .card { 
     aspect-ratio: 1/1;
     box-shadow: 0px 0px 10px rgb(22, 22, 22);
     position: relative;
-    margin: 5px;
     transition: all 500ms ease;
     transform-style: preserve-3d;
-    box-shadow: 0px 10px 5px black;
+    box-shadow: 0px 5px 5px black;
+    margin: 2%;
+    
 }
 
 .rotate{
@@ -184,29 +163,44 @@ main {
     position: absolute;
     aspect-ratio: 1/1;
     background-color: rgb(0, 62, 73);
-    width: 10.7%;
-    left: 2%;
+    width: 2%;
+    right: 2%;
     bottom: 9.5%;
     border-radius: 500px;
     filter: opacity(0.6);
 }
 
 .level{
-    margin-top: 15%;
-    font-size: 1vw;
+    margin: 10% 0;
+    font-size: 2em;
     text-align: center;
-    padding: 1vh;
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 2px black;
 }
 
 .qtdStars {
-    bottom: 5%;
-    right: 5%;
-    position: absolute;
+    text-align: center;
     color: white;
-    font-size: 0.7vw;
-    text-align: right;
+    margin-bottom: 3%;
+    font-size: 1em;
+    text-shadow: 3px 3px 2px black;
+    
+}
+.missingStars{
+    margin-bottom: 3%;
+    text-align: center;
+    color: white;
+    padding: 1%;
+    font-size: 1.1em;
+    text-shadow:1px 1px 1px black;
+    background-color:rgba(255, 255, 255, 0.342)  ;
+}
+
+.topTitle{
+text-align: center;
+padding: 2%;
+margin-bottom: 1%;
+text-shadow: 0px 0px 2px black;
 }
 
 @keyframes myanimation {

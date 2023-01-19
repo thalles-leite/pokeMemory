@@ -1,9 +1,6 @@
 /* eslint-disable object-curly-spacing */
 /* eslint-disable max-len */
-const main = document.querySelector('main');
-const cardBoard = document.querySelector('.cardBoard');
 const bCards = document.querySelector('.cards');
-const cards = document.querySelectorAll('.card');
 const blueLight = document.querySelector('.blueLight');
 let soundCorrect;
 let soundWrong;
@@ -105,15 +102,19 @@ const checkPlay = (target) => {
 
 
 const generateCard = (image, lados) => {
-  const tamanhoCard = Math.round(bCards.offsetHeight / Math.sqrt(2 * lados)) * 0.76;
-  const tamPercent = ((tamanhoCard / bCards.offsetWidth) * 100);
+  const cards = document.querySelector('.cards');
+  // const tamanhoCard = Math.round(bCards.offsetHeight / Math.sqrt(2 * lados)) * 0.76;
+  const colGrid = Math.ceil(Math.sqrt(2 * lados));
+  const rowGrid = Math.floor(Math.sqrt(2 * lados));
+  console.log(colGrid, rowGrid);
+  // const tamPercent = ((tamanhoCard / bCards.offsetWidth) * 100);
   const card = document.createElement('section');
   const frontCard = document.createElement('section');
   const backCard = document.createElement('section');
 
   card.className = 'card';
-  card.style.width = `${tamPercent}%`;
-  card.style.height = `${tamPercent}%`;
+  cards.style.gridTemplateColumns = `repeat(${colGrid}, 1fr)`;
+  cards.style.gridTemplateRows = `repeat(${rowGrid}, 1fr)`;
 
   card.addEventListener('click', ({ target }) => {
     if (firstClickedCard === '' || lastClickedCard === '') {
