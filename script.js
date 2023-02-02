@@ -2,16 +2,49 @@
 /* eslint-disable max-len */
 const bCards = document.querySelector('.cards');
 const blueLight = document.querySelector('.blueLight');
+const lvl = document.querySelector('#lvl');
+const campStars = document.querySelector('#stars');
+const campMissing = document.querySelector('.missing');
+const campNextLevel = document.querySelector('.nextLevel');
+const star2 = document.querySelector('#star2');
+const star3 = document.querySelector('#star3');
+
+let missingStars = 6;
+let starsByLvl = {};
+
+
+for (let index = 0; index < 20; index++) {
+  starsByLvl = {...starsByLvl, [(index+1)]: ((Math.pow(index, 2))+index)};
+}
+
+
 let soundCorrect;
 let soundWrong;
 let soundVictory;
-
+let level = 2;
+let stars = 0;
+let starsPoints;
 // Cria um novo objeto do cronômetro
 const timer = new Timer();
 
-
+const updateStars = () => {
+  const tempoTotal = timer.getTotalTimeValues().seconds;
+  console.log(tempoTotal);
+  console.log(8*(level-1));
+  if (tempoTotal > 10 * (level-1)) {
+    console.log('ue');
+    starsPoints = 1;
+    star2.classList.add('starDisabled');
+  } else if (tempoTotal > 8 * (level-1)) {
+    starsPoints = 2;
+    star3.classList.add('starDisabled');
+  } else {
+    starsPoints = 3;
+  }
+};
 // Atualiza o tempo exibido na tela a cada segundo
 timer.addEventListener('secondsUpdated', () => {
+  updateStars();
   document.getElementById('timer').innerHTML = `${timer.getTimeValues().toString(['minutes', 'seconds'])}`;
 });
 
@@ -57,14 +90,22 @@ const arrayGenerator = (dificult) => {
 
 let firstClickedCard = '';
 let lastClickedCard = '';
-
+const verifyStars = (level, stars) => {
+  const proxLvl = Object.entries(starsByLvl).find((lvl) => +lvl[0]=== level+1)[1];
+  missingStars = proxLvl-stars;
+  return stars>= proxLvl;
+};
 const victoryVerify = () => {
   const corrects = document.querySelectorAll('.correct').length;
   const cards = document.querySelectorAll('.card').length;
   if (corrects >= cards) {
     playSoundVictory();
     timer.stop();
-    return true;
+    stars+=starsPoints;
+
+    setTimeout(() => {
+      verifyStars(level, stars) ? levelUp() :generateAllCards(level);
+    }, 2000);
   }
 };
 
@@ -103,11 +144,8 @@ const checkPlay = (target) => {
 
 const generateCard = (image, lados) => {
   const cards = document.querySelector('.cards');
-  // const tamanhoCard = Math.round(bCards.offsetHeight / Math.sqrt(2 * lados)) * 0.76;
   const colGrid = Math.ceil(Math.sqrt(2 * lados));
   const rowGrid = Math.floor(Math.sqrt(2 * lados));
-  console.log(colGrid, rowGrid);
-  // const tamPercent = ((tamanhoCard / bCards.offsetWidth) * 100);
   const card = document.createElement('section');
   const frontCard = document.createElement('section');
   const backCard = document.createElement('section');
@@ -135,33 +173,42 @@ const generateCard = (image, lados) => {
 };
 
 const generateAllCards = (lados) => {
+  lvl.innerText = level-1;
+  campStars.innerText = stars;
+  campMissing.innerText = missingStars;
+  campNextLevel.innerText = level;
+  star2.className = 'star';
+  star3.className = 'star';
   bCards.innerHTML = '';
   const arrayCards = arrayGenerator(lados);
   arrayCards.forEach((element) => {
     generateCard(element, lados);
   });
 };
-let cont = 2;
+
 
 blueLight.addEventListener('click', () => {
+  levelUp();
+});
+
+blueLight.addEventListener('contextmenu', (element) => {
+  element.preventDefault();
+  generateAllCards(level);
+  console.log(level);
+  level -= 1;
+});
+
+const levelUp = () => {
+  level += 1;
+  verifyStars(level, stars);
   timer.stop();
   timer.reset();
   firstClickedCard = '';
   lastClickedCard = '';
-  generateAllCards(cont);
-  console.log(cont);
-  cont += 1;
-});
-blueLight.addEventListener('contextmenu', (element) => {
-  element.preventDefault();
-  generateAllCards(cont);
-  console.log(cont);
-  cont -= 1;
-});
-
-
+  generateAllCards(level);
+};
+const start = () => {
+  generateAllCards(level);
+};
+start();
 loadSounds();
-
-// gridAjust();
-
-
