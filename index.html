@@ -12,41 +12,55 @@
 </head>
 
 <body>
+    <section class='modal displayNone'>
+        <section class='containerMsg'>
+            
+        </section>
+    </section>
 
     <section class="blueLight"></section>
     <main>
-        <section class="leftData">
-            <section class="timer" id="timer">00:00</section>
-            <section class="name">Player 2</section>
-            <section class="qtdStars">Stars: <span id='stars'></span></section>
-            <section class="stars">
-                <section class="star" id='star1'></section>
-                <section class="star" id='star2'></section>
-                <section class="star" id='star3'></section>
-            </section>
-            <section class="level">Level <span id='lvl'></span></section>
-            
-            <section class="rightData">
-                <h1 class='topTitle'>Top Players:</h1>
-                <ol class='olRighData'>
-                    <li>player 1: 2 pts</li>
-                    <li>player 1: 2 pts</li>
-                   
+       
+        <section class='gameContent'>
 
-                </ol>
+            <section class="leftData">
+                <section class="timer" id="timer">00:00</section>
+                <section class='playerData'>
+                    <section class="name"></section>
+                    <button class='btNewPlayer'>Novo Jogador</button>
+                </section>
+                <section class="stars">
+                    <section class="level">Level <span id='lvl'></span></section>
+                    <section class='starIcons'>
+                        <section class="star" id='star1'></section>
+                        <section class="star" id='star2'></section>
+                        <section class="star" id='star3'></section>
+                    </section>
+                </section>
+                <section class="qtdStars">Stars: <span id='stars'></span></section>
+                
+                <section class="rightData">
+                    <h1 class='topTitle'>Top Players:</h1>
+                    <ol class='olRighData'>
+                        <li>player 1: 2 pts</li>
+                        <li>player 1: 2 pts</li>
+                       
+    
+                    </ol>
+                </section>
             </section>
+            
+                <section class='cardBoard'>
+                    <section class="cards">
+                        
+                    </section>
+                 
+        
+                </section>
         </section>
         
-            <section class='cardBoard'>
-                <section class="cards">
-                    
-                </section>
-             
-    
-            </section>
-        
-            <section class="missingStars">Faltam <span class='missing'></span> stars para o Level <span class='nextLevel'></span></section>
-
+           
+        <section class="missingStars">Faltam <span class='missing'></span> stars para o Level <span class='nextLevel'></span></section>
 
     </main>
     

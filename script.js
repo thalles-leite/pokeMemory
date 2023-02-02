@@ -8,31 +8,113 @@ const campMissing = document.querySelector('.missing');
 const campNextLevel = document.querySelector('.nextLevel');
 const star2 = document.querySelector('#star2');
 const star3 = document.querySelector('#star3');
-
+const containerMsg = document.querySelector('.containerMsg');
+const containerModal = document.querySelector('.modal');
+const campPlayer = document.querySelector('.name');
+const btnNewPlayer = document.querySelector('.btNewPlayer');
 let missingStars = 6;
 let starsByLvl = {};
+let playersData = [];
+let soundCorrect;
+let soundWrong;
+let soundVictory;
+let firstClickedCard = '';
+let lastClickedCard = '';
+let level = 2;
+let stars = 0;
+let starsPoints;
+let player = 'Visitante';
+
+const resetValues = () => {
+  missingStars = 6;
+  starsByLvl = {};
+  soundCorrect;
+  soundWrong;
+  soundVictory;
+  firstClickedCard = '';
+  lastClickedCard = '';
+  level = 2;
+  stars = 0;
+  starsPoints;
+  player = 'Visitante';
+};
 
 
 for (let index = 0; index < 20; index++) {
   starsByLvl = {...starsByLvl, [(index+1)]: ((Math.pow(index, 2))+index)};
 }
 
+const localStorageInsert= (key, value) =>{
+  playersData = [...playersData, {[key]: value}];
+  localStorage.setItem('data', JSON.stringify(playersData));
+};
 
-let soundCorrect;
-let soundWrong;
-let soundVictory;
-let level = 2;
-let stars = 0;
-let starsPoints;
+const newNameTags = () => {
+  const titulo = document.createElement('h4');
+  const inputName = document.createElement('input');
+  const inputButton = document.createElement('button');
+
+  titulo.style.marginBottom = '20px';
+  titulo.innerText = `Digite seu nome`;
+
+  inputName.type = 'text';
+  inputName.className = ('nome');
+  inputName.style.padding = '10px';
+  inputName.style.width = '50%';
+  inputName.style.marginBottom = '20px';
+  inputName.style.textAlign = 'center';
+  inputName.addEventListener('keyup', ({target: {value}}) => {
+    value.length>0?inputButton.removeAttribute('disabled'):
+    inputButton.setAttribute('disabled', '')
+    ;
+  });
+
+  inputButton.innerText = 'Ok';
+  inputButton.style.padding = '10px';
+  inputButton.setAttribute('disabled', '');
+  inputButton.addEventListener('click', () => {
+    localStorageInsert('name', inputName.value);
+    player = inputName.value;
+    displayModal(false);
+    generateAllCards(level);
+  });
+
+  containerMsg.appendChild(titulo);
+  containerMsg.appendChild(inputName);
+  containerMsg.appendChild(inputButton);
+};
+
+const displayModal = (disp) => {
+  disp === true ? containerModal.classList.remove('displayNone') :
+  containerModal.classList.add('displayNone');
+};
+
+const exibirModal = (arg) => {
+  if (arg === 'novoUser') {
+    displayModal(true);
+    newNameTags();
+  }
+};
+
+const verifyData = () => {
+  const dados = JSON.parse(localStorage.getItem('data'));
+  if (!dados) {
+    exibirModal('novoUser');
+  } else {
+    playersData = dados,
+    player = dados[dados.length-1].name; ;
+  }
+};
+
+verifyData();
+
 // Cria um novo objeto do cronômetro
 const timer = new Timer();
 
 const updateStars = () => {
   const tempoTotal = timer.getTotalTimeValues().seconds;
-  console.log(tempoTotal);
-  console.log(8*(level-1));
+
   if (tempoTotal > 10 * (level-1)) {
-    console.log('ue');
     starsPoints = 1;
     star2.classList.add('starDisabled');
   } else if (tempoTotal > 8 * (level-1)) {
@@ -88,8 +170,6 @@ const arrayGenerator = (dificult) => {
   return cards;
 };
 
-let firstClickedCard = '';
-let lastClickedCard = '';
 const verifyStars = (level, stars) => {
   const proxLvl = Object.entries(starsByLvl).find((lvl) => +lvl[0]=== level+1)[1];
   missingStars = proxLvl-stars;
@@ -141,7 +221,6 @@ const checkPlay = (target) => {
   firstClickedCard.getAttribute('data-key') === lastClickedCard.getAttribute('data-key') ? correctMove() : wrongMove();
 };
 
-
 const generateCard = (image, lados) => {
   const cards = document.querySelector('.cards');
   const colGrid = Math.ceil(Math.sqrt(2 * lados));
@@ -177,6 +256,7 @@ const generateAllCards = (lados) => {
   campStars.innerText = stars;
   campMissing.innerText = missingStars;
   campNextLevel.innerText = level;
+  campPlayer.innerText = `${player}`;
   star2.className = 'star';
   star3.className = 'star';
   bCards.innerHTML = '';
@@ -186,7 +266,6 @@ const generateAllCards = (lados) => {
   });
 };
 
-
 blueLight.addEventListener('click', () => {
   levelUp();
 });
@@ -194,7 +273,6 @@ blueLight.addEventListener('click', () => {
 blueLight.addEventListener('contextmenu', (element) => {
   element.preventDefault();
   generateAllCards(level);
-  console.log(level);
   level -= 1;
 });
 
@@ -208,6 +286,10 @@ const levelUp = () => {
   generateAllCards(level);
 };
 const start = () => {
+  btnNewPlayer.addEventListener('click', () => {
+    resetValues();
+    exibirModal('novoUser');
+  });
   generateAllCards(level);
 };
 start();
